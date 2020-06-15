@@ -1,0 +1,238 @@
+PImage startbg, failbg, successbg;
+PImage startgame, start, starthover, next, nexthover, again, againhover, backstart, backstarthover, stuff, stuffhover; 
+PImage headerstart, headerfail, headersuccess;
+PImage feces, clock;
+//level1 img
+PImage l1eyecatch, l1instruction, level1bg, l1lead,level1item;
+PImage chargerC, driveC, mouseC, notebookC, noteC;
+PImage brush, charger, drive, eraser, flower, highspeed, mouse, note, notebook, pen, shark, sock, spanner, sword;
+//level2 img
+PImage l2eyecatch, l2instruction, level2bg, l2lead;
+PImage elseifImg, falseImg, fillImg, forImg, ifImg, PImageImg, printlnImg, trueImg;
+//level3 img
+PImage l3eyecatch1, l3eyecatch2, l3instruction, level3bg1,level3bg2, net;
+PImage [] bugs;
+int[] bugsX, bugsY;
+int bugsH, bugsW = 50;
+int netH, netW = 100;
+boolean isHit;
+//level4 img
+PImage l4eyecatch, l4instruction, level4bg, followmouse;
+PImage folder1, folder2, folder3, folder4;
+PImage chu, code, frog1, frog2, teacher1, teacher2, teacher3, window;
+
+final int GAME_START = 0, GAME_L1 = 1, GAME_L2 = 2, GAME_L3 = 3, GAME_L4 = 4, GAME_FAIL = 5, GAME_SUCCESS = 6;
+int gameState = 0;
+int l1State = 0;
+
+//level1
+float collectGap=95,dropthing=0;
+float fecenum=0,fece1=100,fece2=100,fece3=100;
+float collect1=100,collect2=100,collect3=100,collect4=100,collect5=100;
+float dropx1,dropx2,dropx3,dropx4,dropx5,dropx6,dropx7,dropx8,dropx9,dropx10,dropx11,dropx12,dropx13,dropx14;
+float dropy1,dropy2,dropy3,dropy4,dropy5,dropy6,dropy7,dropy8,dropy9,dropy10,dropy11,dropy12,dropy13,dropy14;
+float dropspeed1,dropspeed2,dropspeed3,dropspeed4,dropspeed5,dropspeed6,dropspeed7,dropspeed8,dropspeed9,dropspeed10,dropspeed11,dropspeed12,dropspeed13,dropspeed14;
+
+void setup(){
+  size(960,640);
+  startbg = loadImage("img/start success fail/bg/startbg.jpg");
+  failbg = loadImage("img/start success fail/bg/failbg.jpg");
+  successbg = loadImage("img/start success fail/bg/successbg.jpg");
+  startgame = loadImage("img/start success fail/button/startgame.png");
+  start= loadImage("img/start success fail/button/start.png");
+  starthover= loadImage("img/start success fail/button/starthover.png");
+  next = loadImage("img/start success fail/button/next.png");
+  nexthover = loadImage("img/start success fail/button/nexthover.png");
+  again = loadImage("img/start success fail/button/again.png");
+  againhover = loadImage("img/start success fail/button/againhover.png");
+  backstart = loadImage("img/start success fail/button/backstart.png");
+  backstarthover = loadImage("img/start success fail/button/backstarthover.png");
+  stuff = loadImage("img/start success fail/button/stuff.png");
+  stuffhover = loadImage("img/start success fail/button/stuffhover.png");
+  headerstart = loadImage("img/start success fail/header/headerstart.jpg");
+  headerfail = loadImage("img/start success fail/header/headerfail.jpg");
+  headersuccess = loadImage("img/start success fail/header/headersuccess.jpg");
+  feces = loadImage("img/level1/collect/feces.png");
+  clock = loadImage("img/level3/object/clock.png");
+  level1item = loadImage("img/level1/level1item.jpg");
+  
+  l1eyecatch = loadImage("img/level1/eyecatch.jpg");
+  l2eyecatch = loadImage("img/level2/eyecatch.jpg");
+  l3eyecatch1 = loadImage("img/level3/eyecatch1.jpg");
+  l3eyecatch2 = loadImage("img/level3/eyecatch2.jpg");
+  l4eyecatch = loadImage("img/level4/eyecatch.jpg");
+  
+  l1instruction = loadImage("img/level1/instruction.jpg");
+  l2instruction = loadImage("img/level2/instruction.jpg");
+  l3instruction = loadImage("img/level3/instruction.jpg");
+  l4instruction = loadImage("img/level4/instruction.jpg");
+  
+  level1bg = loadImage("img/level1/level1bg.jpg");
+  level2bg = loadImage("img/level2/level2bg.jpg");
+  level3bg1 = loadImage("img/level3/level3bg1.jpg");
+  level3bg2 = loadImage("img/level3/level3bg2.jpg");
+  level4bg = loadImage("img/level4/level4bg.jpg");
+  
+  l1lead = loadImage("img/level1/lead.png");
+  l2lead = loadImage("img/level2/lead.png");
+  
+  chargerC = loadImage("img/level1/collect/chargerC.png");
+  driveC = loadImage("img/level1/collect/driveC.png");
+  mouseC = loadImage("img/level1/collect/mouseC.png");
+  notebookC = loadImage("img/level1/collect/notebookC.png");
+  noteC = loadImage("img/level1/collect/noteC.png");
+  
+  brush = loadImage("img/level1/drop/brush.png");
+  charger = loadImage("img/level1/drop/charger.png");
+  drive = loadImage("img/level1/drop/drive.png");
+  eraser = loadImage("img/level1/drop/eraser.png");
+  flower = loadImage("img/level1/drop/flower.png");
+  highspeed = loadImage("img/level1/drop/highspeed.png");
+  mouse = loadImage("img/level1/drop/mouse.png");
+  note = loadImage("img/level1/drop/note.png");
+  notebook = loadImage("img/level1/drop/notebook.png");
+  pen = loadImage("img/level1/drop/pen.png");
+  shark = loadImage("img/level1/drop/shark.png");
+  sock = loadImage("img/level1/drop/sock.png");
+  spanner = loadImage("img/level1/drop/spanner.png");
+  sword = loadImage("img/level1/drop/sword.png");
+  
+  elseifImg = loadImage("img/level2/object/elseifImg.png");
+  falseImg = loadImage("img/level2/object/falseImg.png");
+  fillImg = loadImage("img/level2/object/fillImg.png");
+  forImg = loadImage("img/level2/object/forImg.png");
+  ifImg = loadImage("img/level2/object/ifImg.png");
+  PImageImg = loadImage("img/level2/object/PImageImg.png");
+  printlnImg = loadImage("img/level2/object/printlnImg.png");
+  trueImg = loadImage("img/level2/object/trueImg.png");
+  
+  net = loadImage("img/level3/object/net.png");
+  bugs = new PImage[5];
+  for(int i = 0; i < bugs.length; i++){
+      bugs[i] = loadImage("img/level3/object/bug" + i +".png");
+  }
+  
+  folder1 = loadImage("img/level4/folder/folder1.png");
+  folder2 = loadImage("img/level4/folder/folder2.png");
+  folder3 = loadImage("img/level4/folder/folder3.png");
+  folder4 = loadImage("img/level4/folder/folder4.png");
+  followmouse = loadImage("img/level4/mouse.png");
+  
+  chu = loadImage("img/level4/object/chu.png");
+  code = loadImage("img/level4/object/code.png");
+  frog1 = loadImage("img/level4/object/frog1.png");
+  frog2 = loadImage("img/level4/object/frog2.png");
+  teacher1 = loadImage("img/level4/object/teacher1.png");
+  teacher2 = loadImage("img/level4/object/teacher2.png");
+  teacher3 = loadImage("img/level4/object/teacher3.png");
+  window = loadImage("img/level4/object/window.jpg");
+  
+  //level
+  dropy1=0;
+  
+  //level3
+  initGame();
+}
+
+void draw(){
+
+  switch (gameState) {
+//    
+    case GAME_START :
+    image(l3instruction,0,0); 
+    if(mouseX>=775 && mouseX<=775+again.width && mouseY>=550 && mouseY<=550+again.height){
+      image(next,775,550);
+    }
+    if(mousePressed){
+      gameState = GAME_L3;
+    }else{
+      image(nexthover,775,550);
+    }
+    break;
+   
+//    
+    case GAME_L3 :
+    image(level3bg2,0,0,960,640);
+    PImage newlevel3bg2 = createImage(level3bg1.width,level3bg1.height, RGB);
+    
+    for(int i = 0; i < bugs.length; i++){
+      image(bugs[i],bugsX[i],bugsY[i]);
+      int x = bugsX[i];
+      int y = bugsY[i];
+      image(net,mouseX-net.width/2,mouseY-net.height/2);
+      
+      if(isHit(x, y ,bugsW, bugsH, mouseX, mouseY, netW, netH)){
+        println("2");
+        x = -1000;
+        y = -1000;
+      }
+    }
+   
+    image(level3bg1,0,0,960,640);
+    
+    newlevel3bg2.loadPixels();
+    
+    for(int x=0 ; x<level3bg2.width ; x++){
+      for(int y=0 ; y<level3bg2.height ; y++){
+        
+        int loc = x+y*level3bg2.width;
+        
+        float r = red (level3bg2.pixels[loc]);
+        float g = green (level3bg2.pixels[loc]);
+        float b = blue (level3bg2.pixels[loc]);
+        float a = 255;
+
+        float distance = dist(x,y,mouseX,mouseY);
+       
+        
+        float adjustBrightness = constrain( map(distance, 0,100,1,0) ,0,1);
+        a *= adjustBrightness;
+        //g *= adjustBrightness;
+        //b *= adjustBrightness;
+
+        color c = color(r,g,b,a);
+        newlevel3bg2.pixels[loc] = c;
+      } 
+    }
+    newlevel3bg2.updatePixels();
+    image(level3bg1,0,0,960,640);
+    image(newlevel3bg2,0,0,960,640);
+
+    break;
+    
+    
+    
+  }
+
+}
+
+void initGame(){
+  initBugs();
+}
+
+
+boolean isHit(int ax, int ay, int aw,  int ah,  int bx,  int by,  int bw,  int bh){
+  return  ax + aw > bx &&    // a right edge past b left
+          ax < bx + bw &&    // a left edge past b right
+          ay + ah > by &&    // a top edge past b bottom
+          ay < by + bh;
+}
+  
+  
+void initBugs(){
+  bugsX = new int[5];
+  bugsY = new int[5];
+  for(int i = 0; i < bugs.length; i++){
+    bugsX[i] = floor(random(width));
+    bugsY[i] = floor(random(height));
+    
+    if(bugsX[i] < 0 || bugsX[i] > width-bugsW){
+      bugsX[i] = floor(random(width));
+    }
+    if(bugsY[i] < 0 || bugsY[i] > width-bugsH){
+      bugsX[i] = floor(random(width));
+    }
+    
+    image(bugs[i],bugsX[i],bugsY[i]);
+  }
+}
